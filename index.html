@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bulletproof Buybacks</title>
   <meta name="color-scheme" content="light dark" />
-  <!-- Favicon -->
+  <!-- Favicons (use at least favicon.png at 64x64) -->
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
@@ -20,6 +20,7 @@
       --accent-fg: #ffffff;
       --btn: #2b2b2b;
       --btn-fg: #ffffff;
+      --btn-muted: #3b3e45;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -32,6 +33,7 @@
         --accent-fg: #0e0f11;
         --btn: #2a2d33;
         --btn-fg: #f2f3f5;
+        --btn-muted: #343842;
       }
     }
 
@@ -44,40 +46,22 @@
       line-height: 1.6;
       scroll-behavior: smooth;
     }
-
     .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--line);
-    }
-    .hero {
-      padding: 40px 0 28px;
-      text-align: center;
-    }
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-    }
-    .hero p {
-      margin: 0 auto;
-      max-width: 900px;
-      color: var(--muted);
-      font-size: clamp(16px, 2vw, 20px);
-    }
+    header { background: var(--surface); border-bottom: 1px solid var(--line); }
+    .hero { padding: 40px 0 28px; text-align: center; }
+    .hero h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 40px); font-weight: 800; }
+    .hero p { margin: 0 auto; max-width: 900px; color: var(--muted); font-size: clamp(16px, 2vw, 20px); }
 
     .logo {
       display: block;
-      max-width: 180px; /* display size */
+      max-width: 180px;  /* display size; provide 360x100 actual pixels for retina */
       height: auto;
       margin: 0 auto 12px;
     }
 
-    .row {
-      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-      margin-top: 18px;
-    }
+    .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
     .btn, .btn-secondary {
       display: inline-block;
       padding: 10px 16px;
@@ -87,6 +71,7 @@
       transition: transform .02s ease, opacity .2s ease, background .2s ease, border-color .2s ease;
       will-change: transform;
       font-weight: 600;
+      cursor: pointer;
     }
     .btn:active, .btn-secondary:active { transform: translateY(1px); }
 
@@ -95,109 +80,94 @@
       color: var(--accent-fg);
       border-color: color-mix(in srgb, var(--accent) 70%, black);
     }
-    .btn:hover { opacity: 0.9; }
+    .btn:hover { opacity: .9; }
 
     .btn-secondary {
       background: var(--btn);
       color: var(--btn-fg);
       border-color: var(--line);
     }
-    .btn-secondary:hover { opacity: 0.92; }
-
-    .split {
-      background: var(--bg);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    .btn-secondary:hover { opacity: .92; }
+    .btn-tab[aria-selected="true"] {
+      background: var(--accent);
+      color: var(--accent-fg);
+      border-color: color-mix(in srgb, var(--accent) 70%, black);
     }
+
+    .split { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .split .wrap { padding: 22px 20px; text-align: center; }
     .split h2 { margin: 0 0 10px; }
 
-    .divider {
-      height: 1px; background: var(--line);
-      margin: 24px 0;
-    }
+    .divider { height: 1px; background: var(--line); margin: 16px 0; }
 
-    section {
-      padding: 36px 0;
-    }
+    main { padding-bottom: 24px; }
+    section { padding: 0; }
+    .panel { display: none; padding: 28px 0; }
+    .panel.active { display: block; }
     section .wrap { max-width: 900px; }
-    section h2 {
-      margin-top: 0;
-      scroll-margin-top: 90px;
-      font-size: 26px;
-    }
-    section p, section li { color: var(--fg); }
+    section h2 { margin-top: 0; font-size: 26px; }
     section ol { padding-left: 20px; }
 
-    footer {
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      text-align: center;
-      padding: 24px 0 40px;
-      font-size: 14px;
-    }
+    footer { border-top: 1px solid var(--line); color: var(--muted); text-align: center; padding: 24px 0 40px; font-size: 14px; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="wrap hero">
-      <!-- Logo slot: replace logo.png with your file. Recommended actual size: 360x100px, displayed at 180x50px -->
+      <!-- Logo slot: replace logo.png with your file. Recommended actual size: 360x100px, displayed at ~180x50px -->
       <img src="logo.png" alt="Bulletproof Buybacks Logo" class="logo" />
       <h1>Bulletproof Buybacks</h1>
       <p>We make your electronics buyback program <strong>bulletproof.</strong> Learn our process, check our prices, and never lose money again!</p>
-      <div class="row">
-        <a class="btn" href="mailto:sam@bulletproofbuybacks.com">Email Us</a>
-        <a class="btn" href="https://wa.me/13365281019" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
     </div>
 
     <div class="split">
       <div class="wrap">
         <h2>Find Out More:</h2>
-        <div class="row">
-          <a class="btn-secondary" href="#who-we-work-with">Who we work with</a>
-          <a class="btn-secondary" href="#our-process">Our process</a>
-          <a class="btn-secondary" href="#pricing">How pricing works</a>
+        <div class="row" role="tablist" aria-label="Find Out More">
+          <button class="btn-secondary btn-tab" role="tab" aria-selected="false" data-target="who-we-work-with">Who we work with</button>
+          <button class="btn-secondary btn-tab" role="tab" aria-selected="false" data-target="our-process">Our process</button>
+          <button class="btn-secondary btn-tab" role="tab" aria-selected="false" data-target="pricing">How pricing works</button>
+        </div>
+
+        <!-- Contact buttons moved below the three tabs -->
+        <div class="row" style="margin-top:14px">
+          <a class="btn" href="mailto:sam@bulletproofbuybacks.com">Email Us</a>
+          <a class="btn" href="https://wa.me/13365281019" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main>
+  <main class="wrap">
     <div class="divider"></div>
 
-    <section id="who-we-work-with">
-      <div class="wrap">
-        <h2>Who we work with</h2>
-        <p>We work with any retail location or chain of locations that wants or needs to accept smartphones, tablets, headphones, and laptops and wants a proven, risk-managed system to manage their program. We offer training, software, and systems to ensure you only accept trade-ins or buy devices that are legally acquired (nothing stolen, blacklisted, leased, or liened), graded properly, and have good margin.</p>
-        <p>With our system you can accept broken, damaged, or poor condition items that you can't sell in your stores or sell in traditional e-commerce channels. You can take anything that comes in the door—from a $5 pair of headphones to a $5,000 gaming laptop.</p>
-        <p>We partner with businesses that are established in their market, have hard-working employees, and are already known for trading in second-hand or overstock items (Sorry, but we don't want inexperienced customers). We are primarily looking for pawn shops, cell phone stores, and repair shops with the capital to purchase whatever comes in and the ability to follow all local and national regulations.</p>
-        <p>We will spend time training you and your employees. We are excellent teachers, but we know some employees aren't easy to coach and won't do a good job following a step-by-step system. If this is an issue for you, we probably aren't a good fit.</p>
-        <p>If you are still interested, reach out to us. Let's talk!</p>
-      </div>
+    <!-- Panels (hidden until a tab is clicked) -->
+    <section id="who-we-work-with" class="panel" role="tabpanel" aria-hidden="true">
+      <h2>Who we work with</h2>
+      <p>We work with any retail location or chain of locations that wants or needs to accept smartphones, tablets, headphones, and laptops and wants a proven, risk-managed system to manage their program. We offer training, software, and systems to ensure you only accept trade-ins or buy devices that are legally acquired (nothing stolen, blacklisted, leased, or liened), graded properly, and have good margin.</p>
+      <p>With our system you can accept broken, damaged, or poor condition items that you can't sell in your stores or sell in traditional e-commerce channels. You can take anything that comes in the door—from a $5 pair of headphones to a $5,000 gaming laptop.</p>
+      <p>We partner with businesses that are established in their market, have hard-working employees, and are already known for trading in second-hand or overstock items (Sorry, but we don't want inexperienced customers). We are primarily looking for pawn shops, cell phone stores, and repair shops with the capital to purchase whatever comes in and the ability to follow all local and national regulations.</p>
+      <p>We will spend time training you and your employees. We are excellent teachers, but we know some employees aren't easy to coach and won't do a good job following a step-by-step system. If this is an issue for you, we probably aren't a good fit.</p>
+      <p>If you are still interested, reach out to us. Let's talk!</p>
     </section>
 
-    <section id="our-process">
-      <div class="wrap">
-        <h2>Our Process</h2>
-        <p>We give our partners four powerful things they need to succeed:</p>
-        <ol>
-          <li>Step-by-step instructions with videos, checklists, photos, and VERY clear guides on how to test and grade each device. We have first-hand experience testing every kind of device you will run across, and we know what to watch out for, what not to worry about, and how to check everything without wasting too much time.</li>
-          <li>We provide free access to tools to check if a device is stolen, blacklisted, or otherwise illegally or illegitimately acquired. We pay for you to have access to tools that check manufacturer warranty and production details, IMEI blacklists, iCloud and Google account lock status, police records, and insurance records. We spend up to $4 on each device you check to give you every piece of information you will need to avoid problem items.</li>
-          <li>We provide up-to-date alerts about problems and trends in the industry as they come across our desk. If there are new kinds of counterfeit devices, scams, or types of damage to worry about we will see them before you will and keep you up to date. As new devices launch we update our knowledge base and keep you in the know.</li>
-          <li>If you are providing over a certain number of devices we will supply a workstation outfitted with a testing hub and PhoneCheck—state-of-the-art software used by the largest companies in the industry. We have the experience and data to help you scale quickly and profitably.</li>
-        </ol>
-      </div>
+    <section id="our-process" class="panel" role="tabpanel" aria-hidden="true">
+      <h2>Our Process</h2>
+      <p>We give our partners four powerful things they need to succeed:</p>
+      <ol>
+        <li>Step-by-step instructions with videos, checklists, photos, and VERY clear guides on how to test and grade each device. We have first-hand experience testing every kind of device you will run across, and we know what to watch out for, what not to worry about, and how to check everything without wasting too much time.</li>
+        <li>We provide free access to tools to check if a device is stolen, blacklisted, or otherwise illegally or illegitimately acquired. We pay for you to have access to tools that check manufacturer warranty and production details, IMEI blacklists, iCloud and Google account lock status, police records, and insurance records. We spend up to $4 on each device you check to give you every piece of information you will need to avoid problem items.</li>
+        <li>We provide up-to-date alerts about problems and trends in the industry as they come across our desk. If there are new kinds of counterfeit devices, scams, or types of damage to worry about we will see them before you will and keep you up to date. As new devices launch we update our knowledge base and keep you in the know.</li>
+        <li>If you are providing over a certain number of devices we will supply a workstation outfitted with a testing hub and PhoneCheck—state-of-the-art software used by the largest companies in the industry. We have the experience and data to help you scale quickly and profitably.</li>
+      </ol>
     </section>
 
-    <section id="pricing">
-      <div class="wrap">
-        <h2>Guaranteed Profit Price Sheets</h2>
-        <p>Bulletproof Buybacks is the only company in the industry that can guarantee you will never lose money on phones you buy. As long as you carefully follow our step-by-step testing process (which includes places to document what you have done) we will honor the price on our price list for the grade you come up with. That means that if your employees make a legit, small mistake or our training is lacking you don't take the hit—we take it, adjust our training to avoid it in the future, and pay you exactly what you expected to get. You will always know your margins.</p>
-        <p>The electronics industry is incredibly volatile, and it isn't uncommon for prices to change thirty to forty percent in just a few months. Pawn shops and cell phone stores often have to hold devices for 7, 14, 30, 45, 60, or 90 days to give police an opportunity to recover stolen devices or allow customers to redeem items in pawn. We correct for this risk by providing a price for today and a guaranteed future price and price charts showing how prices have changed over time. When you purchase a device you can see what you can sell it for now, how prices have moved over time, and what we will pay you—no matter what—when the device is clear to sell.</p>
-        <p>When the device is clear to sell you get the higher of two prices: The price we guaranteed you when you bought it, or the current price we are offering today. If you want to try to sell the item in your retail store you can renew your offer one time—resubmit the info and get another set of offers good for up to 90 days. This gives you the opportunity to pull back some of your inventory to fill your case without losing the price guarantee.</p>
-      </div>
+    <section id="pricing" class="panel" role="tabpanel" aria-hidden="true">
+      <h2>Guaranteed Profit Price Sheets</h2>
+      <p>Bulletproof Buybacks is the only company in the industry that can guarantee you will never lose money on phones you buy. As long as you carefully follow our step-by-step testing process (which includes places to document what you have done) we will honor the price on our price list for the grade you come up with. That means that if your employees make a legit, small mistake or our training is lacking you don't take the hit—we take it, adjust our training to avoid it in the future, and pay you exactly what you expected to get. You will always know your margins.</p>
+      <p>The electronics industry is incredibly volatile, and it isn't uncommon for prices to change thirty to forty percent in just a few months. Pawn shops and cell phone stores often have to hold devices for 7, 14, 30, 45, 60, or 90 days to give police an opportunity to recover stolen devices or allow customers to redeem items in pawn. We correct for this risk by providing a price for today and a guaranteed future price and price charts showing how prices have changed over time. When you purchase a device you can see what you can sell it for now, how prices have moved over time, and what we will pay you—no matter what—when the device is clear to sell.</p>
+      <p>When the device is clear to sell you get the higher of two prices: The price we guaranteed you when you bought it, or the current price we are offering today. If you want to try to sell the item in your retail store you can renew your offer one time—resubmit the info and get another set of offers good for up to 90 days. This gives you the opportunity to pull back some of your inventory to fill your case without losing the price guarantee.</p>
     </section>
   </main>
 
@@ -208,6 +178,37 @@
   </footer>
 
   <script>
+    // Toggle panels when a tab is clicked; support deep links like #our-process
+    const tabs = Array.from(document.querySelectorAll('.btn-tab'));
+    const panels = Array.from(document.querySelectorAll('.panel'));
+
+    function showPanel(id) {
+      panels.forEach(p => {
+        const active = p.id === id;
+        p.classList.toggle('active', active);
+        p.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+      tabs.forEach(t => {
+        t.setAttribute('aria-selected', t.dataset.target === id ? 'true' : 'false');
+      });
+      // scroll the divider into view to keep context tight
+      const divider = document.querySelector('.divider');
+      if (divider) divider.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // update hash without jumping
+      history.replaceState(null, '', '#' + id);
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => showPanel(btn.dataset.target));
+    });
+
+    // open the hash panel on load if present; otherwise none shown
+    const hash = (location.hash || '').replace('#','');
+    if (hash && document.getElementById(hash)) {
+      showPanel(hash);
+    }
+
+    // footer year
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
